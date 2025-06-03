@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.venv/
+env/
+ENV/
+
+data/*
+data/*.zip
+test.py
+
+# Environment variables
+.env
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Project-specific
+# Ignore the extracted CSV files as they are generated from the zip
+csv_agent_project/data/extracted/
+
+# Optional: If you don't want to commit the zip file itself
+# csv_agent_project/data/*.zip
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+
+
+gemini_pro_models.txt
