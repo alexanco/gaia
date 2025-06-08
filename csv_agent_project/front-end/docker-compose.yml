@@ -1,0 +1,50 @@
+services:
+  # Desenvolvimento
+  app-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app:cached
+      - vite_cache:/app/node_modules/.vite
+      - node_modules:/app/node_modules
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - NODE_OPTIONS=--max-old-space-size=4096
+    develop:
+      watch:
+        - action: sync
+          path: ./src
+          target: /app/src
+        - action: sync
+          path: ./public
+          target: /app/public
+        - action: rebuild
+          path: package.json
+    profiles:
+      - dev
+
+  # Produção
+  app-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost/"]
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    profiles:
+      - prod
+
+# Volume nomeado para node_modules e cache do Vite
+volumes:
+  node_modules:
+  vite_cache:
