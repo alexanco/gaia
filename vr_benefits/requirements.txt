@@ -1,0 +1,9 @@
+pandas>=2.2.0
+openpyxl
+python-dotenv
+langchain>=0.2.0
+langchain-core>=0.2.0
+langchain-community>=0.2.0
+langchain-openai>=0.1.0
+python-slugify
+rapidfuzz
